@@ -34,17 +34,26 @@
                 BorderThickness="1 0 1 1"
                 Command="{Binding OpenDirectoryCommand, Mode=OneTime}" Height="40" VerticalAlignment="Bottom"/>
         <Grid Grid.Column="1" Margin="5,0,0,0">
-            <Grid DataContext="{Binding SelectedFile, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,45">
-                <Image Source="{Binding Icon, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,287,0"/>
-                <TextBox Text="{Binding FileName, UpdateSourceTrigger=PropertyChanged, FallbackValue=filename}" IsReadOnly="True" Padding="5" FontSize="16" VerticalAlignment="Top" HorizontalAlignment="Right" Width="282"/>
-                <TextBox Text="{Binding FilePath, FallbackValue=filepath, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" Padding="5" FontSize="14" VerticalAlignment="Top" Margin="0,38,0,0" HorizontalAlignment="Right" Width="282"/>
-                <TextBlock Text="{Binding FileSizeBytes, FallbackValue=filesize, UpdateSourceTrigger=PropertyChanged}" Padding="5" FontSize="14" VerticalAlignment="Top" Margin="0,74,0,0" HorizontalAlignment="Right" Width="282"/>
+            <Grid Margin="0,0,0,45">
+                <GroupBox>
+                    <GroupBox.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBox Text="{Binding SelectedFile.FileName, UpdateSourceTrigger=PropertyChanged, FallbackValue=filename}" Padding="1" FontSize="14" VerticalContentAlignment="Center" Background="Transparent" BorderBrush="Transparent"/>
+                            <Separator Style="{DynamicResource VerticalSeparator}" Margin="5 0"/>
+                            <TextBlock Text="{Binding SelectedFile.FileSizeBytes, FallbackValue=filesize, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" FontSize="12"/>
+                        </StackPanel>
+                    </GroupBox.Header>
+                    <Grid>
+                        <Image Source="{Binding SelectedFile.Icon, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,49"/>
+                        <TextBox Text="{Binding SelectedFile.FilePath, FallbackValue=filepath, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" Padding="5" FontSize="14" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="748"/>
+                        <CheckBox Content="Put old name in brackets: new (old)" 
+                                  IsChecked="{Binding BracketOldName, UpdateSourceTrigger=PropertyChanged}"
+                                  Padding="5" FontSize="14" VerticalAlignment="Bottom" Margin="0,0,0,3" 
+                                  HorizontalAlignment="Right" Width="240"
+                                  ToolTip="Place the old file name in brackets. E.g: 'new file name (old file name).png'" Height="24"/>
+                    </Grid>
+                </GroupBox>
             </Grid>
-            <CheckBox Content="Put old name in brackets: new (old)" 
-                      IsChecked="{Binding BracketOldName, UpdateSourceTrigger=PropertyChanged}"
-                      Padding="5" FontSize="14" VerticalAlignment="Top" Margin="0,108,0,0" 
-                      HorizontalAlignment="Right" Width="282"
-                      ToolTip="Place the old file name in brackets. E.g: 'new file name (old file name).png'" Height="24"/>
             <TextBox Text="{Binding NewFileName, UpdateSourceTrigger=PropertyChanged}" 
                      Padding="10 5 50 5" Margin="0,0,80,0" 
                      VerticalContentAlignment="Center" Height="40" 
