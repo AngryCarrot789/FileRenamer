@@ -103,7 +103,7 @@ namespace FileRenamer.ViewModels
                     };
 
                     AddFile(file);
-                    await Task.Delay(10);
+                    await Task.Delay(8);
 
                     IconFetcher.FetchIcon(file);
                 }

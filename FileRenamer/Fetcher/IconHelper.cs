@@ -156,8 +156,7 @@ namespace FileRenamer.Fetcher
             return
                 extension == ".png" ||
                 extension == ".jpg" ||
-                extension == ".gif" ||
-                extension == ".mp4";
+                extension == ".gif";
         }
     }
 }
