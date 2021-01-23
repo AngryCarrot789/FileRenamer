@@ -4,6 +4,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Threading.Tasks;
+using System.Windows;
 using TheRFramework.Utilities;
 using Application = System.Windows.Application;
 
@@ -138,11 +139,18 @@ namespace FileRenamer.ViewModels
                 string oldDir = Path.GetDirectoryName(SelectedFile.FilePath);
                 string newPath = Path.Combine(oldDir, NewFileName + NewFileExtension);
 
-                File.Move(SelectedFile.FilePath, newPath);
-                SelectedFile.FilePath = newPath;
-                NewFileName = "";
-
-                SelectedIndex++;
+                if (File.Exists(newPath))
+                {
+                    MessageBox.Show("A file with that name already exists");
+                    NewFileName = "";
+                }
+                else
+                {
+                    File.Move(SelectedFile.FilePath, newPath);
+                    SelectedFile.FilePath = newPath;
+                    NewFileName = "";
+                    SelectedIndex++;
+                }
             }
         }
     }
