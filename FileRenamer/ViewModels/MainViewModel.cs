@@ -146,7 +146,7 @@ namespace FileRenamer.ViewModels
             else
             {
                 string oldDir = Path.GetDirectoryName(SelectedFile.FilePath);
-                string newName = NewFileName + (BracketOldName ? $" ({SelectedFile.FileName})" : "");
+                string newName = NewFileName + (BracketOldName ? $" ({Path.GetFileNameWithoutExtension(SelectedFile.FileName)})" : "");
                 string newPath = Path.Combine(oldDir, newName + NewFileExtension);
 
                 if (File.Exists(newPath))
