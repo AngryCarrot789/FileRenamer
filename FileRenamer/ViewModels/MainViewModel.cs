@@ -20,6 +20,7 @@ namespace FileRenamer.ViewModels
         private string _newFileName;
         private string _newFileExtension;
         private int _selectedIndex;
+        private bool _bracketOldName;
 
         public FileViewModel SelectedFile
         {
@@ -59,6 +60,12 @@ namespace FileRenamer.ViewModels
             set => RaisePropertyChanged(ref _newFileExtension, value);
         }
 
+        public bool BracketOldName
+        {
+            get => _bracketOldName;
+            set => RaisePropertyChanged(ref _bracketOldName, value);
+        }
+
         public Command OpenDirectoryCommand { get; }
         public Command RenameFileCommand { get; }
 
@@ -68,6 +75,7 @@ namespace FileRenamer.ViewModels
             Files = new ObservableCollection<FileViewModel>();
             NewFileName = "";
             NewFileExtension = "";
+            BracketOldName = true;
             OpenDirectoryCommand = new Command(OpenDirectoryDialog);
             RenameFileCommand = new Command(RenameSelectedFile);
         }
@@ -131,13 +139,15 @@ namespace FileRenamer.ViewModels
         {
             if (string.IsNullOrEmpty(NewFileName.Trim()))
             {
+                // skip
                 NewFileName = "";
                 SelectedIndex++;
             }
             else
             {
                 string oldDir = Path.GetDirectoryName(SelectedFile.FilePath);
-                string newPath = Path.Combine(oldDir, NewFileName + NewFileExtension);
+                string newName = NewFileName + (BracketOldName ? $" ({SelectedFile.FileName})" : "");
+                string newPath = Path.Combine(oldDir, newName + NewFileExtension);
 
                 if (File.Exists(newPath))
                 {

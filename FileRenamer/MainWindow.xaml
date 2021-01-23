@@ -36,26 +36,28 @@
         <Grid Grid.Column="1" Margin="5,0,0,0">
             <Grid DataContext="{Binding SelectedFile, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,45">
                 <Image Source="{Binding Icon, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,287,0"/>
-                <TextBlock Text="{Binding FileName, UpdateSourceTrigger=PropertyChanged, FallbackValue=filename}" Padding="5" FontSize="16" VerticalAlignment="Top" HorizontalAlignment="Right" Width="282"/>
-                <TextBlock Text="{Binding FilePath, FallbackValue=filepath, UpdateSourceTrigger=PropertyChanged}" Padding="5" FontSize="14" VerticalAlignment="Top" Margin="0,36,0,0" HorizontalAlignment="Right" Width="282"/>
-                <TextBlock Text="{Binding FileSizeBytes, FallbackValue=filesize, UpdateSourceTrigger=PropertyChanged}" Padding="5" FontSize="14" VerticalAlignment="Top" Margin="0,70,0,0" HorizontalAlignment="Right" Width="282"/>
+                <TextBox Text="{Binding FileName, UpdateSourceTrigger=PropertyChanged, FallbackValue=filename}" IsReadOnly="True" Padding="5" FontSize="16" VerticalAlignment="Top" HorizontalAlignment="Right" Width="282"/>
+                <TextBox Text="{Binding FilePath, FallbackValue=filepath, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" Padding="5" FontSize="14" VerticalAlignment="Top" Margin="0,38,0,0" HorizontalAlignment="Right" Width="282"/>
+                <TextBlock Text="{Binding FileSizeBytes, FallbackValue=filesize, UpdateSourceTrigger=PropertyChanged}" Padding="5" FontSize="14" VerticalAlignment="Top" Margin="0,74,0,0" HorizontalAlignment="Right" Width="282"/>
             </Grid>
+            <CheckBox Content="Put old name in brackets: new (old)" 
+                      IsChecked="{Binding BracketOldName, UpdateSourceTrigger=PropertyChanged}"
+                      Padding="5" FontSize="14" VerticalAlignment="Top" Margin="0,108,0,0" 
+                      HorizontalAlignment="Right" Width="282"
+                      ToolTip="Place the old file name in brackets. E.g: 'new file name (old file name).png'" Height="24"/>
             <TextBox Text="{Binding NewFileName, UpdateSourceTrigger=PropertyChanged}" 
-                     Padding="10" Margin="0,0,122,0" 
+                     Padding="10 5 50 5" Margin="0,0,80,0" 
                      VerticalContentAlignment="Center" Height="40" 
-                     VerticalAlignment="Bottom"
-                     BorderThickness="1 1 0 1">
+                     VerticalAlignment="Bottom">
                 <TextBox.InputBindings>
                     <KeyBinding Key="Enter" Command="{Binding RenameFileCommand, Mode=OneTime}"/>
                 </TextBox.InputBindings>
             </TextBox>
-            <TextBox Text="{Binding NewFileExtension, UpdateSourceTrigger=PropertyChanged}" Padding="5 10" Margin="0,0,80,0" 
-                     IsReadOnly="True"
-                     VerticalAlignment="Bottom" 
-                     VerticalContentAlignment="Center"
-                     HorizontalAlignment="Right" Width="42"
-                     Height="40"
-                     BorderThickness="0 1 1 1"/>
+            <TextBlock Text="{Binding NewFileExtension, UpdateSourceTrigger=PropertyChanged}" Padding="5 10" Margin="0,0,80,2" 
+                       VerticalAlignment="Bottom" 
+                       HorizontalAlignment="Right" 
+                       Width="45"/>
+            <Separator Style="{DynamicResource VerticalSeparator}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="32" Width="1" Margin="0,0,125,4"/>
             <Button Content="Rename" HorizontalAlignment="Right" Width="75" Command="{Binding RenameFileCommand, Mode=OneTime}" Height="40" VerticalAlignment="Bottom"/>
         </Grid>
     </Grid>
